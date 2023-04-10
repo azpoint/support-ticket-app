@@ -1,1 +1,0 @@
-mongod -f "D:\dev\tutos\react-front-to-back\support-ticket-app\db\config\mongod-st.cfg"
