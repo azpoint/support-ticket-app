@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon backend/server.js",
-    "test": "node server.js"
+    "back-dev": "nodemon backend/server.js",
+    "test": "node server.js",
+    "front-dev": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run back-dev\" \"npm run front-dev\""
   },
   "keywords": [],
   "author": "",
