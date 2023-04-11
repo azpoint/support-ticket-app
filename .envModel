@@ -1,0 +1,7 @@
+# developmento or/ production, development by default
+NODE_ENV = 
+PORT = # 8080 default
+#CLOUD DB, leave it blank to use local (DB_LOCAL)
+CLOUD_DB = 
+#MONGO URL
+DB_LOCAL_URL = 
