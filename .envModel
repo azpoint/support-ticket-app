@@ -5,3 +5,5 @@ PORT = # 8080 default
 CLOUD_DB = 
 #MONGO URL
 DB_LOCAL_URL = 
+#JWT Secret
+JWT_SECRET =

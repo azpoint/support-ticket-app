@@ -5,12 +5,15 @@ const express = require("express")
 const apiRouter = express.Router()
 
 //Controller
-const { registerUser, loginUser } = require("../controllers/userController")
+const { registerUser, loginUser, getMe } = require("../controllers/userController")
+
+//Middlewares
+const { protect } = require("../middlewares/authMiddleware")
 
 //Router
 apiRouter.post("/", registerUser)
-
 apiRouter.post("/login", loginUser)
+apiRouter.get("/me", protect, getMe)
 
 
 module.exports = apiRouter
