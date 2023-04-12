@@ -6,8 +6,7 @@
   "scripts": {
     "back-dev": "nodemon backend/server.js",
     "test": "node server.js",
-    "front-dev": "npm run dev --prefix frontend",
-    "dev": "concurrently \"npm run back-dev\" \"npm run front-dev\""
+    "front-dev": "npm run dev --prefix frontend"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +15,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
