@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,jsx}"
   ],
   theme: {
-    extend: {},
+    colors: {
+      someGray: "#e6e6e6"
+    },
+    extend: {
+      fontFamily: {
+        mono: ["Source Code Pro", "monospace"]
+      }
+    },
   },
   plugins: [],
 }

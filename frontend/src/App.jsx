@@ -1,9 +1,28 @@
+//Dependencies
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+
+//Componets
+import Header from "./components/Header"
+
+//Pages
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
 
 function App() {
 
   return (
     <>
-      <div className="container flex justify-center text-blue-500 font-semibold text-4xl mx-auto w-1/3">Hello Alejandro</div>
+    <Router>
+      <div className="container mx-auto">
+        <Header/>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
+        </Routes>
+      </div>
+    </Router>
     </>
   )
 }
