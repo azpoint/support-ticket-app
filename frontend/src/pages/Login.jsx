@@ -1,60 +1,76 @@
 import { useState } from "react"
-// import { toast } from "react-toastify"
+import {toast} from 'react-toastify'
+import {FaSignInAlt} from 'react-icons/fa'
 
-import { FaSignInAlt } from "react-icons/fa"
+//Redux
+import {useSelector, useDispatch} from 'react-redux'
+import {login} from '../features/auth/authSlice'
 
-function Login() {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    })
+export default function Login() {
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+	})
 
-    const {email, password} = formData
+	const { email,password} = formData;
 
-    const onChange = (e) => {
-        setFormData( prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
-    }
 
-    const onSubmit = (e) => {
-        e.preventDefault()
+	//Redux
+	const dispatch = useDispatch();
 
-        
-    }
+	const { user, isLoading, isSuccess, message } = useSelector(
+		(state) => state.auth
+	);
+	//Redux end
+
+
+	const onChange = e => {
+		setFormData((prevState => ({
+			...prevState,
+			[e.target.name]: e.target.value
+		})))
+	}
+
+	const onSubmit = (e) => {
+		e.preventDefault()
+
+		const userData = {
+			email,
+			password
+		}
+
+		dispatch(login(userData))
+
+	}
+
+
 
   return (
-    <>
-        <section className="flex flex-col items-center">
-            <h1 className="flex items-center text-3xl gap-x-4">
-                <FaSignInAlt /> Login
-            </h1>
-            <p className="text-2xl text-gray-500">Please log in to get support</p>
-        </section>
+	<>
+		<section className="heading">
+			<h1>
+				<FaSignInAlt/> Login
+			</h1>
+			<p>Login to get support</p>
+			<section className="form">
+				<form onSubmit={onSubmit}>
+					
+					<div className="form-group">
+						<input type="email" className="form-control" id="email" value={email} name='email' onChange={onChange} placeholder="Enter your email"/>
+					</div>
 
-        <section className="flex flex-col items-center w-2/4 mx-auto my-10">
-            <form className="space-y-4 items-center w-full" onSubmit={onSubmit}>
-                
+					<div className="form-group">
+						<input type="password" className="form-control" id="password" value={password} name='password' onChange={onChange} placeholder="Enter your password"/>
+					</div>
 
-                <div>
-                    <input type="email" id="email" value={email} name="email" onChange={onChange} placeholder="Enter your email" required/>
-                </div>
+					<div className="form-group">
+						<button className="btn btn-block">Submit</button>
+					</div>
+				</form>
+			</section>
+		</section>
 
-                <div>
-                    <input type="password" id="password" value={password} name="password" onChange={onChange} placeholder="Enter your password" required/>
-                </div>
-
-                
-
-                <div>
-                    <button className="btn-full">
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </section>
-    </>
+		
+	</>
   )
 }
-export default Login

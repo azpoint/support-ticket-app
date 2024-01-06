@@ -1,68 +1,114 @@
-import { useState } from "react"
-import { toast } from "react-toastify"
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { FaUser } from "react-icons/fa";
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+import { register } from "../features/auth/authSlice";
 
-import { FaUser } from "react-icons/fa"
+export default function Register() {
+	const [formData, setFormData] = useState({
+		name: "",
+		email: "",
+		password: "",
+		password2: "",
+	});
 
-function Register() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        password2: ""
-    })
+	const { name, email, password, password2 } = formData;
 
-    const {name, email, password, password2} = formData
+	//Redux
+	const dispatch = useDispatch();
 
-    const onChange = (e) => {
-        setFormData( prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
-    }
+	const { user, isLoading, isSuccess, message } = useSelector(
+		(state) => state.auth
+	);
+	//Redux end
 
-    const onSubmit = (e) => {
-        e.preventDefault()
+	const onChange = (e) => {
+		setFormData((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+		}));
+	};
 
-        if(password !== password2) {
-            toast.error("Passwords do not match")
-        }
-    }
+	const onSubmit = (e) => {
+		e.preventDefault();
 
-  return (
-    <>
-        <section className="flex flex-col items-center">
-            <h1 className="flex items-center text-3xl gap-x-4">
-                <FaUser /> Register
-            </h1>
-            <p className="text-2xl text-gray-500">Please create an Account</p>
-        </section>
+		if (password !== password2) {
+			toast.error("Passwords don't match");
+		} else {
+			const userData = {
+				name,
+				email,
+				password,
+			};
 
-        <section className="flex flex-col items-center w-2/4 mx-auto my-10">
-            <form className="space-y-4 items-center w-full" onSubmit={onSubmit}>
-                <div>
-                    <input type="text" id="name" value={name} name="name" onChange={onChange} placeholder="Enter your name" required/>
-                </div>
+			dispatch(register(userData));
+		}
+	};
 
-                <div>
-                    <input type="email" id="email" value={email} name="email" onChange={onChange} placeholder="Enter your email" required/>
-                </div>
+	return (
+		<>
+			<section className="heading">
+				<h1>
+					<FaUser /> Register {user}
+				</h1>
+				<p>Please create an account</p>
+				<section className="form">
+					<form onSubmit={onSubmit}>
+						<div className="form-group">
+							<input
+								type="text"
+								className="form-control"
+								id="name"
+								value={name}
+								name="name"
+								onChange={onChange}
+								placeholder="Enter your name"
+							/>
+						</div>
 
-                <div>
-                    <input type="password" id="password" value={password} name="password" onChange={onChange} placeholder="Enter your password" required/>
-                </div>
+						<div className="form-group">
+							<input
+								type="email"
+								className="form-control"
+								id="email"
+								value={email}
+								name="email"
+								onChange={onChange}
+								placeholder="Enter your email"
+							/>
+						</div>
 
-                <div>
-                    <input type="password" id="password2" value={password2} name="password2" onChange={onChange} placeholder="Confirm password" required/>
-                </div>
+						<div className="form-group">
+							<input
+								type="password"
+								className="form-control"
+								id="password"
+								value={password}
+								name="password"
+								onChange={onChange}
+								placeholder="Enter your password"
+							/>
+						</div>
 
-                <div>
-                    <button className="btn-full">
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </section>
-    </>
-  )
+						<div className="form-group">
+							<input
+								type="password"
+								className="form-control"
+								id="password2"
+								value={password2}
+								name="password2"
+								onChange={onChange}
+								placeholder="Confirm password"
+							/>
+						</div>
+
+						<div className="form-group">
+							<button className="btn btn-block">Submit</button>
+						</div>
+					</form>
+				</section>
+			</section>
+		</>
+	);
 }
-export default Register
